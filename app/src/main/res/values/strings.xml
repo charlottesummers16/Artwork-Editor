@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Artwork Editor</string>
-    <string name="canvasContentDescription">Random string here</string>
+    <string name="change_colour">Change colour</string>
 </resources>
