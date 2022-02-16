@@ -1,8 +1,6 @@
 package com.summers.artworkeditor
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
+import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
@@ -15,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
+    private var path = Path()
+    private var paint = Paint()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val bitmap: Bitmap = Bitmap.createBitmap(700, 700, Bitmap.Config.ARGB_8888)
-//        val canvas: Canvas = Canvas(bitmap)
+        val bitmap: Bitmap = Bitmap.createBitmap(700, 700, Bitmap.Config.ARGB_8888)
+        val canvas: Canvas = Canvas(bitmap)
 //
 //        // rectangle positions
 //        var left = 100
