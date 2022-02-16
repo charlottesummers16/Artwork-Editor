@@ -4,14 +4,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageV"
+    <RadioGroup
+        android:id="@+id/rgrpDrawingLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radbTopLeft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/location_top_left"
+            android:textSize="@dimen/text_size_18sp" />
+
+        <RadioButton
+            android:id="@+id/radbTopRight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/location_top_right"
+            android:textSize="@dimen/text_size_18sp" />
+
+        <RadioButton
+            android:id="@+id/radbBottomLeft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/location_bottom_left"
+            android:textSize="@dimen/text_size_18sp" />
+
+        <RadioButton
+            android:id="@+id/radbBottomRight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/location_bottom_right"
+            android:textSize="@dimen/text_size_18sp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rgrpDrawingShape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radbSquare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/drawing_square"
+            android:textSize="@dimen/text_size_18sp" />
+
+        <RadioButton
+            android:id="@+id/radbCircle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/drawing_circle"
+            android:textSize="@dimen/text_size_18sp" />
+
+        <RadioButton
+            android:id="@+id/radbTriangle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/drawing_triangle"
+            android:textSize="@dimen/text_size_18sp" />
+
+        <RadioButton
+            android:id="@+id/radbHalfCircle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/drawing_half_circle"
+            android:textSize="@dimen/text_size_18sp" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/cvCanvasView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:contentDescription="@string/imageViewContentDescription"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgrpDrawingLocation" />
+
+    <Button
+        android:id="@+id/btnDraw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/draw"
+        app:layout_constraintEnd_toStartOf="@+id/rgrpDrawingShape"
+        app:layout_constraintStart_toEndOf="@+id/rgrpDrawingLocation"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/clear"
+        app:layout_constraintEnd_toStartOf="@+id/rgrpDrawingShape"
+        app:layout_constraintStart_toEndOf="@+id/rgrpDrawingLocation"
+        app:layout_constraintTop_toBottomOf="@+id/btnDraw" />
+
+    <Button
+        android:id="@+id/btnBezier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/bezier"
+        app:layout_constraintEnd_toStartOf="@+id/rgrpDrawingShape"
+        app:layout_constraintStart_toEndOf="@+id/rgrpDrawingLocation"
+        app:layout_constraintTop_toBottomOf="@+id/btnClear" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,23 @@
 <resources>
     <string name="app_name">Artwork Editor</string>
     <string name="canvasContentDescription">Random string here</string>
+    <string name="imageViewContentDescription">Image view layout.</string>
+
+    <!--  Buttons  -->
+    <string name="draw">Draw</string>
+    <string name="clear">Clear</string>
+    <string name="bezier">Bezier</string>
+
+    <!--  Drawing Locations  -->
+    <string name="location_top_left">Top Left</string>
+    <string name="location_top_right">Top Right</string>
+    <string name="location_bottom_left">Bottom Left</string>
+    <string name="location_bottom_right">Bottom Right</string>
+
+    <!--  Drawing Shapes  -->
+    <string name="drawing_circle">Circle</string>
+    <string name="drawing_square">Square</string>
+    <string name="drawing_triangle">Triangle</string>
+    <string name="drawing_half_circle">Half Circle</string>
+
 </resources>
