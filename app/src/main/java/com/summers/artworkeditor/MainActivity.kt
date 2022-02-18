@@ -101,6 +101,8 @@ class DrawView(context: Context, private val shape: Int, private val startX: Flo
 
         canvas.drawPath(path, paint)
 
+        canvas.drawPath(drawPolygon(), paint)
+
     }
 
     private fun drawSquare() {
@@ -137,6 +139,20 @@ class DrawView(context: Context, private val shape: Int, private val startX: Flo
     private fun drawBezier() {
         path.moveTo(100f, 500f)
         path.cubicTo(200f, 400f, 600f, 600f, 900f, 350f)
+    }
+
+    private fun drawPolygon(): Path {
+        val polygonPath = Path()
+        polygonPath.moveTo(350f, 350f)
+        polygonPath.lineTo(400f, 350f)
+        polygonPath.lineTo(400f, 400f)
+        polygonPath.lineTo(375f, 450f)
+        polygonPath.close()
+
+        paint.color = Color.GREEN
+        paint.style = Paint.Style.FILL_AND_STROKE
+
+        return polygonPath
     }
 
 }
