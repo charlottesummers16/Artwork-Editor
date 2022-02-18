@@ -76,8 +76,8 @@
             android:textSize="@dimen/text_size_18sp" />
     </RadioGroup>
 
-    <View
-        android:id="@+id/cvCanvasView"
+    <FrameLayout
+        android:id="@+id/flFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:contentDescription="@string/imageViewContentDescription"

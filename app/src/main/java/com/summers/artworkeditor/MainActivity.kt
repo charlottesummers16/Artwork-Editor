@@ -1,13 +1,9 @@
 package com.summers.artworkeditor
 
+import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
-import android.graphics.drawable.shapes.RectShape
 import android.os.Bundle
 import android.view.View
-import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
@@ -23,16 +19,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var drawView = DrawView(this)
+//        findViewById<FrameLayout>(R.id.flFrameLayout).addView(drawView)
+
         setUpRadioButtons()
         paint.color = Color.BLACK
         paint.strokeWidth = 10f
 
         findViewById<Button>(R.id.btnDraw).setOnClickListener {
-            drawShape()
+//            drawShape()
+            findViewById<FrameLayout>(R.id.flFrameLayout).addView(drawView)
         }
-        findViewById<Button>(R.id.btnClear).setOnClickListener {
-            canvas.drawColor(Color.WHITE)
-        }
+//        findViewById<Button>(R.id.btnClear).setOnClickListener {
+//            canvas.drawColor(Color.WHITE)
+//        }
 
     }
 
@@ -86,9 +86,39 @@ class MainActivity : AppCompatActivity() {
         path.lineTo(startX, startY)
         path.close()
 
-//        path.addRect(startX, startY, right, bottom, Path.Direction.CW)
+
         canvas.drawColor(Color.BLACK)
         canvas.drawPath(path, paint)
     }
 
+}
+
+class DrawView(context: Context) : View(context) {
+    private var path = Path()
+    private var paint = Paint()
+
+    override fun onDraw(canvas: Canvas) {
+        paint.color = Color.BLACK
+        paint.strokeWidth = 10f
+
+        drawSquare(10f, 10f)
+
+        canvas.drawPath(path, paint)
+
+    }
+
+    private fun drawSquare(startX: Float, startY: Float) {
+        val right = startX + 50f
+        val bottom = startY + 50f
+
+        path.moveTo(startX, startY)
+        path.lineTo(right, startY)
+        path.lineTo(right, bottom)
+        path.lineTo(startX, bottom)
+        path.lineTo(startX, startY)
+        path.close()
+
+//        canvas.drawColor(Color.BLACK)
+//        canvas.drawPath(path, paint)
+    }
 }
