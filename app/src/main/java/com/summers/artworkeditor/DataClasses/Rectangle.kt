@@ -1,3 +1,7 @@
 package com.summers.artworkeditor.DataClasses
 
-data class Rectangle()
+import android.graphics.Color
+
+data class Rectangle(override val x: Float, override val y: Float, override val colour: Color) : Object(x, y, colour) {
+
+}
