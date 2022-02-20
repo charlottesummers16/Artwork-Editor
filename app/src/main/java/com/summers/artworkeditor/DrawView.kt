@@ -20,6 +20,7 @@ class DrawView(context: Context, private val shape: ObjectShape) : View(context)
 
 
     override fun onDraw(canvas: Canvas) {
+        path.reset()
         paint.color = shape.colour.toArgb()
         Log.d("DRAW_VIEW_CHARLOTTE", "Paint: ${paint.color}, ${shape.colour.toArgb()}")
         paint.strokeWidth = 10f

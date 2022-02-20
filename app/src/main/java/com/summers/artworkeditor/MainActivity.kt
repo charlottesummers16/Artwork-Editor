@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawView: DrawView
     private var startX = 0f
     private var startY = 0f
+    private var shapeDrawn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +23,13 @@ class MainActivity : AppCompatActivity() {
         var myObject: ObjectShape = getObject()
 
         findViewById<Button>(R.id.btnDraw).setOnClickListener {
+
+            if (shapeDrawn) {
+                val blankObjectShape: ObjectShape = Circle(0f, 0f, Color.valueOf(Color.WHITE), "", 0f)
+                drawView = DrawView(this, blankObjectShape)
+                drawView.invalidate()
+            }
+            shapeDrawn = true
             getStartXY()
             Log.d("MAIN_ACTIVITY_CHARLOTTE", "X: $startX, Y: $startY")
             myObject = getObject()

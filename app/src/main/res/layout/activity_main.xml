@@ -114,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/change_colour"
-        android:textSize="8sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toTopOf="@+id/btnBezier"
         app:layout_constraintEnd_toStartOf="@+id/rgrpDrawingShape"
         app:layout_constraintStart_toEndOf="@+id/rgrpDrawingLocation"
