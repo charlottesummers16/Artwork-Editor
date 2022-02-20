@@ -5,24 +5,43 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
+import android.util.Log
 import android.view.View
+import com.summers.artworkeditor.DataClasses.Circle
+import com.summers.artworkeditor.DataClasses.ObjectShape
 
-class DrawView(context: Context, private val shape: Int, private val startX: Float, private val startY: Float) : View(context) {
+class DrawView(context: Context, private val shape: ObjectShape) : View(context) {
     private var path = Path()
     private var paint = Paint()
 
+    private val startX = shape.x
+    private val startY = shape.y
+    private val radius = shape.radius
+
+
     override fun onDraw(canvas: Canvas) {
-        paint.color = Color.RED
+        paint.color = shape.colour.toArgb()
+        Log.d("DRAW_VIEW_CHARLOTTE", "Paint: ${paint.color}, ${shape.colour.toArgb()}")
         paint.strokeWidth = 10f
         paint.style = Paint.Style.STROKE
 
-        when (shape) {
-            0 -> drawSquare()
-            1 -> drawCircle()
-            2 -> drawTriangle()
-            3 -> drawHalfCircle()
-            4 -> drawBezier()
+        when (shape.type){
+            "Line" -> {}
+            "Rectangle" -> {}
+            "Circle" -> {
+                Log.d("DRAW_VIEW_CHARLOTTE", "Drawing a circle with radius ${shape.radius}")
+                drawCircle()
+            }
+            "Polygon" -> {}
         }
+
+//        when (shape) {
+//            0 -> drawSquare()
+//            1 -> drawCircle()
+//            2 -> drawTriangle()
+//            3 -> drawHalfCircle()
+//            4 -> drawBezier()
+//        }
 
         canvas.drawPath(path, paint)
 
@@ -40,7 +59,7 @@ class DrawView(context: Context, private val shape: Int, private val startX: Flo
     }
 
     private fun drawCircle() {
-        path.addCircle(startX, startY, 75f, Path.Direction.CW)
+        path.addCircle(startX, startY, radius, Path.Direction.CW)
         path.close()
     }
 
