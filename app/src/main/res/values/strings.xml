@@ -7,6 +7,7 @@
     <string name="draw">Draw</string>
     <string name="clear">Clear</string>
     <string name="bezier">Bezier</string>
+    <string name="change_colour">Change colour</string>
 
     <!--  Drawing Locations  -->
     <string name="location_top_left">Top Left</string>

@@ -1,13 +1,11 @@
 package com.summers.artworkeditor
 
-import android.content.Context
-import android.graphics.*
+import android.graphics.Color
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.summers.artworkeditor.DataClasses.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,20 +13,39 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawView: DrawView
     private var startX = 0f
     private var startY = 0f
+    private var shapeDrawn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setUpRadioButtons()
+        var myObject: ObjectShape = getObject()
 
         findViewById<Button>(R.id.btnDraw).setOnClickListener {
-            drawView = DrawView(this, drawShape(), startX, startY)
+
+            if (shapeDrawn) {
+                val blankObjectShape: ObjectShape = Circle(0f, 0f, Color.valueOf(Color.WHITE), "", 0f)
+                drawView = DrawView(this, blankObjectShape)
+                drawView.invalidate()
+            }
+            shapeDrawn = true
+            getStartXY()
+            Log.d("MAIN_ACTIVITY_CHARLOTTE", "X: $startX, Y: $startY")
+            myObject = getObject()
+            Log.d("MAIN_ACTIVITY_CHARLOTTE", "ObjectShape: ${myObject.type}")
+            drawView = DrawView(this, myObject)
+//            drawView = DrawView(this, drawShape(), startX, startY)
             findViewById<FrameLayout>(R.id.flFrameLayout).addView(drawView)
         }
 
+        findViewById<Button>(R.id.btnChangeColour).setOnClickListener {
+            myObject.colour = Color.valueOf(Color.BLUE)
+            drawView.invalidate()
+        }
+
         findViewById<Button>(R.id.btnBezier).setOnClickListener {
-            drawView = DrawView(this, 4, startX, startY)
+//            drawView = DrawView(this, 4, startX, startY)
             findViewById<FrameLayout>(R.id.flFrameLayout).addView(drawView)
         }
 
@@ -37,6 +54,47 @@ class MainActivity : AppCompatActivity() {
     private fun setUpRadioButtons() {
         findViewById<RadioButton>(R.id.radbTopLeft).isChecked = true
         findViewById<RadioButton>(R.id.radbSquare).isChecked = true
+    }
+
+    private fun getStartXY() {
+        when (findViewById<RadioGroup>(R.id.rgrpDrawingLocation).checkedRadioButtonId) {
+            R.id.radbTopLeft -> {
+                startX = 100f
+                startY = 100f
+            }
+            R.id.radbBottomLeft -> {
+                startX = 100f
+                startY = 1000f
+            }
+            R.id.radbTopRight -> {
+                startX = 700f
+                startY = 100f
+            }
+            R.id.radbBottomRight -> {
+                startX = 700f
+                startY = 1000f
+            }
+        }
+    }
+
+    private fun getObject(): ObjectShape {
+        val myShape: ObjectShape =  when (findViewById<RadioGroup>(R.id.rgrpDrawingShape).checkedRadioButtonId) {
+            R.id.radbSquare -> {
+                Rectangle(startX, startY, Color.valueOf(Color.RED), "Rectangle")
+            }
+            R.id.radbCircle -> {
+                Circle(startX, startY, Color.valueOf(Color.RED), "Circle", 50f)
+            }
+            R.id.radbTriangle -> {
+                Polygon(startX, startY, Color.valueOf(Color.RED), "Polygon")
+            }
+//            R.id.radbHalfCircle -> {
+//                3
+//            }
+            else -> Line(startX, startY, Color.valueOf(Color.RED))
+        }
+
+        return myShape
     }
 
     private fun drawShape(): Int {
@@ -82,61 +140,3 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-class DrawView(context: Context, private val shape: Int, private val startX: Float, private val startY: Float) : View(context) {
-    private var path = Path()
-    private var paint = Paint()
-
-    override fun onDraw(canvas: Canvas) {
-        paint.color = Color.RED
-        paint.strokeWidth = 10f
-        paint.style = Paint.Style.STROKE
-
-        when (shape) {
-            0 -> drawSquare()
-            1 -> drawCircle()
-            2 -> drawTriangle()
-            3 -> drawHalfCircle()
-            4 -> drawBezier()
-        }
-
-        canvas.drawPath(path, paint)
-
-    }
-
-    private fun drawSquare() {
-        val right = startX + 200f
-        val bottom = startY + 200f
-
-        path.moveTo(startX, startY)
-        path.lineTo(right, startY)
-        path.lineTo(right, bottom)
-        path.lineTo(startX, bottom)
-        path.close()
-    }
-
-    private fun drawCircle() {
-        path.addCircle(startX, startY, 75f, Path.Direction.CW)
-        path.close()
-    }
-
-    private fun drawTriangle() {
-        val size = 200f
-        val halfSize = 100f
-
-        path.moveTo(startX+halfSize, startY)
-        path.lineTo(startX+size, startY+size)
-        path.lineTo(startX, startY+size)
-        path.close()
-    }
-
-    private fun drawHalfCircle() {
-        path.arcTo(startX, startY, startX+200f, startY+200, 180f, 180f, true)
-        path.close()
-    }
-
-    private fun drawBezier() {
-        path.moveTo(100f, 500f)
-        path.cubicTo(200f, 400f, 600f, 600f, 900f, 350f)
-    }
-
-}
