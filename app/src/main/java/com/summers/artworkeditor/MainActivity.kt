@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private var startX = 0f
     private var startY = 0f
     private var shapeDrawn = false
+    private val shapesList = mutableListOf<ObjectShape>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity() {
             else -> Line(startX, startY, Color.valueOf(Color.RED))
         }
 
+        shapesList.add(myShape)
         return myShape
     }
 
