@@ -10,7 +10,7 @@ import android.view.View
 import com.summers.artworkeditor.DataClasses.Circle
 import com.summers.artworkeditor.DataClasses.ObjectShape
 
-class DrawView(context: Context, private val shape: ObjectShape) : View(context) {
+class DrawView(context: Context, private val shape: ObjectShape, private val shapeList: MutableList<ObjectShape>) : View(context) {
     private var path = Path()
     private var paint = Paint()
 
@@ -22,29 +22,54 @@ class DrawView(context: Context, private val shape: ObjectShape) : View(context)
     override fun onDraw(canvas: Canvas) {
         path.reset()
         paint.color = shape.colour.toArgb()
-        Log.d("DRAW_VIEW_CHARLOTTE", "Paint: ${paint.color}, ${shape.colour.toArgb()}")
+        Log.d("CHARLOTTE_LOG", "Paint: ${paint.color}, ${shape.colour.toArgb()}")
         paint.strokeWidth = 10f
         paint.style = Paint.Style.STROKE
 
-        when (shape.type){
-            "Line" -> {}
-            "Rectangle" -> {}
-            "Circle" -> {
-                Log.d("DRAW_VIEW_CHARLOTTE", "Drawing a circle with radius ${shape.radius}")
-                drawCircle()
+        shapeList.forEach { shape ->
+            when (shape.type){
+                "Line" -> {
+                    Log.d("CHARLOTTE_LOG", "Drawing a Bezier curve.")
+                    drawBezier()
+                }
+                "Rectangle" -> {
+                    Log.d("CHARLOTTE_LOG", "Drawing a rectangle.")
+                    drawSquare()
+                }
+                "Circle" -> {
+                    Log.d("CHARLOTTE_LOG", "Drawing a circle with radius ${shape.radius}.")
+                    drawCircle()
+                }
+                "Polygon" -> {
+                    Log.d("CHARLOTTE_LOG", "Drawing a polygon.")
+                    drawTriangle()
+                }
             }
-            "Polygon" -> {}
+            canvas.drawPath(path, paint)
         }
 
-//        when (shape) {
-//            0 -> drawSquare()
-//            1 -> drawCircle()
-//            2 -> drawTriangle()
-//            3 -> drawHalfCircle()
-//            4 -> drawBezier()
-//        }
+        Log.d("CHARLOTTE_LOG", "shapeList contains ${shapeList.size} shapes.")
 
-        canvas.drawPath(path, paint)
+
+//        when (shape.type){
+//            "Line" -> {drawBezier()}
+//            "Rectangle" -> {drawSquare()}
+//            "Circle" -> {
+//                Log.d("DRAW_VIEW_CHARLOTTE", "Drawing a circle with radius ${shape.radius}")
+//                drawCircle()
+//            }
+//            "Polygon" -> {drawTriangle()}
+//        }
+//
+////        when (shape) {
+////            0 -> drawSquare()
+////            1 -> drawCircle()
+////            2 -> drawTriangle()
+////            3 -> drawHalfCircle()
+////            4 -> drawBezier()
+////        }
+//
+//        canvas.drawPath(path, paint)
 
     }
 
