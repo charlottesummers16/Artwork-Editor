@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private var startX = 0f
     private var startY = 0f
     private var shapeDrawn = false
+    private val shapesList = mutableListOf<ObjectShape>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,20 +22,25 @@ class MainActivity : AppCompatActivity() {
 
         setUpRadioButtons()
         var myObject: ObjectShape = getObject()
+        val myObjectList = mutableListOf<ObjectShape>()
 
         findViewById<Button>(R.id.btnDraw).setOnClickListener {
 
-            if (shapeDrawn) {
-                val blankObjectShape: ObjectShape = Circle(0f, 0f, Color.valueOf(Color.WHITE), "", 0f)
-                drawView = DrawView(this, blankObjectShape)
-                drawView.invalidate()
-            }
-            shapeDrawn = true
+            //Attempt at clearing the canvas before drawing a new shape.
+//            if (shapeDrawn) {
+//                val blankObjectShape: ObjectShape = Circle(0f, 0f, Color.valueOf(Color.WHITE), "", 0f)
+//                drawView = DrawView(this, blankObjectShape, myObjectList)
+//                drawView.invalidate()
+//            }
+//            shapeDrawn = true
+
+            //drawView.invalidate()
             getStartXY()
-            Log.d("MAIN_ACTIVITY_CHARLOTTE", "X: $startX, Y: $startY")
+            Log.d("CHARLOTTE_LOG", "X: $startX, Y: $startY")
             myObject = getObject()
-            Log.d("MAIN_ACTIVITY_CHARLOTTE", "ObjectShape: ${myObject.type}")
-            drawView = DrawView(this, myObject)
+            myObjectList.add(myObject)
+            Log.d("CHARLOTTE_LOG", "ObjectShape: ${myObject.type}")
+            drawView = DrawView(this, myObject, myObjectList)
 //            drawView = DrawView(this, drawShape(), startX, startY)
             findViewById<FrameLayout>(R.id.flFrameLayout).addView(drawView)
         }
@@ -94,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             else -> Line(startX, startY, Color.valueOf(Color.RED))
         }
 
+        shapesList.add(myShape)
         return myShape
     }
 
